@@ -38,6 +38,10 @@ var _reactNoSsr = require('react-no-ssr');
 
 var _reactNoSsr2 = _interopRequireDefault(_reactNoSsr);
 
+var _socket = require('socket.io-client');
+
+var _socket2 = _interopRequireDefault(_socket);
+
 var _index = require('../components/TextEditor/index');
 
 var _index2 = _interopRequireDefault(_index);
@@ -48,8 +52,7 @@ var _index4 = _interopRequireDefault(_index3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var _jsxFileName = '/Users/azriel/projects/ws-server/pages/index.js?entry';
-
+var socket = (0, _socket2.default)('http://localhost:4001');
 
 var styles = {
   root: {
@@ -77,7 +80,7 @@ var Index = function (_React$Component) {
     };
 
     _this.emitAction = function (action) {
-      console.log((0, _stringify2.default)(action));
+      socket.emit('message', (0, _stringify2.default)(action));
     };
 
     _this.state = {
@@ -91,29 +94,8 @@ var Index = function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      return _react2.default.createElement('div', { style: styles.root, __source: {
-          fileName: _jsxFileName,
-          lineNumber: 40
-        }
-      }, _react2.default.createElement(_reactNoSsr2.default, {
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 41
-        }
-      }, _react2.default.createElement(_index2.default, { createAction: this.createAction, __source: {
-          fileName: _jsxFileName,
-          lineNumber: 42
-        }
-      })), _react2.default.createElement('div', { style: styles.actionList, __source: {
-          fileName: _jsxFileName,
-          lineNumber: 44
-        }
-      }, this.state.actions.map(function (action, index) {
-        return _react2.default.createElement(_index4.default, { key: index, clickCb: _this2.emitAction, action: action, __source: {
-            fileName: _jsxFileName,
-            lineNumber: 46
-          }
-        });
+      return _react2.default.createElement('div', { style: styles.root }, _react2.default.createElement(_reactNoSsr2.default, null, _react2.default.createElement(_index2.default, { createAction: this.createAction })), _react2.default.createElement('div', { style: styles.actionList }, this.state.actions.map(function (action, index) {
+        return _react2.default.createElement(_index4.default, { key: index, clickCb: _this2.emitAction, action: action });
       })));
     }
   }]);

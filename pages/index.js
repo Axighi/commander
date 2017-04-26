@@ -1,8 +1,11 @@
 import {Editor, EditorState} from 'draft-js'
 import NoSSR from 'react-no-ssr'
+import io from 'socket.io-client'
 
 import TextEditor from '../components/TextEditor/index'
 import ActionEmitter from '../components/ActionEmitter/index'
+
+const socket = io('http://localhost:4001')
 
 const styles = {
   root: {
@@ -32,7 +35,7 @@ class Index extends React.Component {
   }
 
   emitAction = (action) => {
-    console.log(JSON.stringify(action))
+    socket.emit('message', JSON.stringify(action))
   }
 
   render() {
