@@ -1,0 +1,124 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _stringify = require('babel-runtime/core-js/json/stringify');
+
+var _stringify2 = _interopRequireDefault(_stringify);
+
+var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require('babel-runtime/helpers/createClass');
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = require('babel-runtime/helpers/inherits');
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _draftJs = require('draft-js');
+
+var _reactNoSsr = require('react-no-ssr');
+
+var _reactNoSsr2 = _interopRequireDefault(_reactNoSsr);
+
+var _index = require('../components/TextEditor/index');
+
+var _index2 = _interopRequireDefault(_index);
+
+var _index3 = require('../components/ActionEmitter/index');
+
+var _index4 = _interopRequireDefault(_index3);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _jsxFileName = '/Users/azriel/projects/ws-server/pages/index.js?entry';
+
+
+var styles = {
+  root: {
+    display: 'flex',
+    width: '100vw'
+  },
+  actionList: {
+    flex: 1,
+    border: '1px solid #ccc',
+    margin: '20px'
+  }
+};
+
+var Index = function (_React$Component) {
+  (0, _inherits3.default)(Index, _React$Component);
+
+  function Index() {
+    (0, _classCallCheck3.default)(this, Index);
+
+    var _this = (0, _possibleConstructorReturn3.default)(this, (Index.__proto__ || (0, _getPrototypeOf2.default)(Index)).call(this));
+
+    _this.createAction = function (action) {
+      console.log(action);
+      _this.setState({ actions: _this.state.actions.concat([action]) });
+    };
+
+    _this.emitAction = function (action) {
+      console.log((0, _stringify2.default)(action));
+    };
+
+    _this.state = {
+      actions: [{ type: 'speak', payload: {} }]
+    };
+    return _this;
+  }
+
+  (0, _createClass3.default)(Index, [{
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      return _react2.default.createElement('div', { style: styles.root, __source: {
+          fileName: _jsxFileName,
+          lineNumber: 40
+        }
+      }, _react2.default.createElement(_reactNoSsr2.default, {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 41
+        }
+      }, _react2.default.createElement(_index2.default, { createAction: this.createAction, __source: {
+          fileName: _jsxFileName,
+          lineNumber: 42
+        }
+      })), _react2.default.createElement('div', { style: styles.actionList, __source: {
+          fileName: _jsxFileName,
+          lineNumber: 44
+        }
+      }, this.state.actions.map(function (action, index) {
+        return _react2.default.createElement(_index4.default, { key: index, clickCb: _this2.emitAction, action: action, __source: {
+            fileName: _jsxFileName,
+            lineNumber: 46
+          }
+        });
+      })));
+    }
+  }]);
+
+  return Index;
+}(_react2.default.Component);
+
+exports.default = Index;
