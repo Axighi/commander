@@ -52,7 +52,7 @@ var _index4 = _interopRequireDefault(_index3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var socket = (0, _socket2.default)("http://localhost:4001");
+var socket = (0, _socket2.default)(process.env.NODE_ENV === "development" ? "http://localhost:4000" : "https://ws-server-mhnpavohst.now.sh/");
 
 var styles = {
   root: {

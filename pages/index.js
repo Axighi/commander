@@ -5,7 +5,11 @@ import io from "socket.io-client";
 import TextEditor from "../components/TextEditor/index";
 import ActionEmitter from "../components/ActionEmitter/index";
 
-const socket = io("http://localhost:4001");
+const socket = io(
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:4000"
+    : "https://ws-server-mhnpavohst.now.sh/"
+);
 
 const styles = {
   root: {
