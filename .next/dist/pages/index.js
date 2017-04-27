@@ -1,68 +1,68 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _stringify = require('babel-runtime/core-js/json/stringify');
+var _stringify = require("babel-runtime/core-js/json/stringify");
 
 var _stringify2 = _interopRequireDefault(_stringify);
 
-var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
+var _getPrototypeOf = require("babel-runtime/core-js/object/get-prototype-of");
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
 
-var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+var _classCallCheck2 = require("babel-runtime/helpers/classCallCheck");
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
-var _createClass2 = require('babel-runtime/helpers/createClass');
+var _createClass2 = require("babel-runtime/helpers/createClass");
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
+var _possibleConstructorReturn2 = require("babel-runtime/helpers/possibleConstructorReturn");
 
 var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
 
-var _inherits2 = require('babel-runtime/helpers/inherits');
+var _inherits2 = require("babel-runtime/helpers/inherits");
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _react = require('react');
+var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _draftJs = require('draft-js');
+var _draftJs = require("draft-js");
 
-var _reactNoSsr = require('react-no-ssr');
+var _reactNoSsr = require("react-no-ssr");
 
 var _reactNoSsr2 = _interopRequireDefault(_reactNoSsr);
 
-var _socket = require('socket.io-client');
+var _socket = require("socket.io-client");
 
 var _socket2 = _interopRequireDefault(_socket);
 
-var _index = require('../components/TextEditor/index');
+var _index = require("../components/TextEditor/index");
 
 var _index2 = _interopRequireDefault(_index);
 
-var _index3 = require('../components/ActionEmitter/index');
+var _index3 = require("../components/ActionEmitter/index");
 
 var _index4 = _interopRequireDefault(_index3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var socket = (0, _socket2.default)('http://localhost:4001');
+var socket = (0, _socket2.default)("http://localhost:4001");
 
 var styles = {
   root: {
-    display: 'flex',
-    width: '100vw'
+    display: "flex",
+    width: "100vw"
   },
   actionList: {
     flex: 1,
-    border: '1px solid #ccc',
-    margin: '20px'
+    border: "1px solid #ccc",
+    margin: "20px"
   }
 };
 
@@ -80,22 +80,26 @@ var Index = function (_React$Component) {
     };
 
     _this.emitAction = function (action) {
-      socket.emit('message', (0, _stringify2.default)(action));
+      socket.emit("message", (0, _stringify2.default)(action));
     };
 
     _this.state = {
-      actions: [{ type: 'speak', payload: {} }]
+      actions: [{ type: "speak", payload: {} }]
     };
     return _this;
   }
 
   (0, _createClass3.default)(Index, [{
-    key: 'render',
+    key: "render",
     value: function render() {
       var _this2 = this;
 
-      return _react2.default.createElement('div', { style: styles.root }, _react2.default.createElement(_reactNoSsr2.default, null, _react2.default.createElement(_index2.default, { createAction: this.createAction })), _react2.default.createElement('div', { style: styles.actionList }, this.state.actions.map(function (action, index) {
-        return _react2.default.createElement(_index4.default, { key: index, clickCb: _this2.emitAction, action: action });
+      return _react2.default.createElement("div", { style: styles.root }, _react2.default.createElement(_reactNoSsr2.default, null, _react2.default.createElement(_index2.default, { createAction: this.createAction })), _react2.default.createElement("div", { style: styles.actionList }, this.state.actions.map(function (action, index) {
+        return _react2.default.createElement(_index4.default, {
+          key: index,
+          clickCb: _this2.emitAction,
+          action: action
+        });
       })));
     }
   }]);
