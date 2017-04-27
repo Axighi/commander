@@ -30,7 +30,7 @@ class Index extends React.Component {
     this.socket = io(
       process.env.NODE_ENV === "development"
         ? "http://localhost:4000"
-        : "https://ws-server-mhnpavohst.now.sh/"
+        : process.env.NOW_URL
     );
   }
 
