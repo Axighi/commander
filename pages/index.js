@@ -6,12 +6,6 @@ import TextEditor from "../components/TextEditor/index";
 import ActionEmitter from "../components/ActionEmitter/index";
 import DeleteButton from "../components/DeleteButton/index";
 
-const socket = io(
-  process.env.NODE_ENV === "development"
-    ? "http://localhost:4000"
-    : "https://ws-server-mhnpavohst.now.sh/"
-);
-
 const styles = {
   root: {
     display: "flex",
@@ -32,6 +26,19 @@ class Index extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.socket = io(
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:4000"
+        : "https://ws-server-mhnpavohst.now.sh/"
+    );
+  }
+
+  componentWillUnmount() {
+    this.socket.off("message", this.handleMessage);
+    this.socket.close();
+  }
+
   createAction = action => {
     console.log(action);
     if (this.state.actions.some(e => e.type === action.type)) {
@@ -42,7 +49,7 @@ class Index extends React.Component {
   };
 
   emitAction = action => {
-    socket.emit("message", JSON.stringify(action));
+    this.socket.emit("message", JSON.stringify(action));
   };
 
   deleteAction = actionId => {
