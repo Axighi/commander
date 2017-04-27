@@ -1,47 +1,48 @@
-import {Editor, EditorState, convertToRaw} from 'draft-js';
+import { Editor, EditorState, convertToRaw } from "draft-js";
 
 const styles = {
   root: {
-    fontFamily: '\'Helvetica\', sans-serif',
+    fontFamily: "'Helvetica', sans-serif",
     padding: 20,
     flex: 3
   },
   editor: {
-    border: '1px solid #ccc',
-    cursor: 'text',
+    border: "1px solid #ccc",
+    cursor: "text",
     minHeight: 200,
-    padding: 10,
+    padding: 10
   },
   button: {
     marginTop: 10,
-    textAlign: 'center',
-  },
+    textAlign: "center"
+  }
 };
 
-const convertObjectToText = obj => obj.blocks.reduce((prev, cur) => prev + cur.text, '')
+const convertObjectToText = obj =>
+  obj.blocks.reduce((prev, cur) => prev + cur.text, "");
 
 export default class TextEditor extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {editorState: EditorState.createEmpty()};
+    this.state = { editorState: EditorState.createEmpty() };
 
     this.focus = () => this.refs.editor.focus();
-    this.onChange = (editorState) => this.setState({editorState});
+    this.onChange = editorState => this.setState({ editorState });
     this.handleClick = () => {
-      const obj = convertToRaw(this.state.editorState.getCurrentContent())
-      const str = convertObjectToText(obj)
+      const obj = convertToRaw(this.state.editorState.getCurrentContent());
+      const str = convertObjectToText(obj);
       try {
-        const action = JSON.parse(str)
+        const action = JSON.parse(str);
         if (!action.type) {
-          alert('Invalid action!')
-          return
+          alert("Invalid action!");
+          return;
         }
-        this.props.createAction(action)
+        this.props.createAction(action);
       } catch (e) {
-        alert('Invalid JSON!')
-        return
+        alert("Invalid JSON!");
+        return;
       }
-    }
+    };
   }
 
   render() {
@@ -59,7 +60,7 @@ export default class TextEditor extends React.Component {
           onClick={this.handleClick}
           style={styles.button}
           type="button"
-          value="Log State"
+          value="Generate Action"
         />
       </div>
     );

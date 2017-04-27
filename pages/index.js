@@ -4,6 +4,7 @@ import io from "socket.io-client";
 
 import TextEditor from "../components/TextEditor/index";
 import ActionEmitter from "../components/ActionEmitter/index";
+import DeleteButton from "../components/DeleteButton/index";
 
 const socket = io(
   process.env.NODE_ENV === "development"
@@ -33,11 +34,22 @@ class Index extends React.Component {
 
   createAction = action => {
     console.log(action);
+    if (this.state.actions.some(e => e.type === action.type)) {
+      alert(`action ${action.type} exists!`);
+      return;
+    }
     this.setState({ actions: this.state.actions.concat([action]) });
   };
 
   emitAction = action => {
     socket.emit("message", JSON.stringify(action));
+  };
+
+  deleteAction = actionId => {
+    console.log(actionId);
+    this.setState({
+      actions: this.state.actions.filter(e => e.type !== actionId)
+    });
   };
 
   render() {
@@ -48,11 +60,12 @@ class Index extends React.Component {
         </NoSSR>
         <div style={styles.actionList}>
           {this.state.actions.map((action, index) => (
-            <ActionEmitter
-              key={index}
-              clickCb={this.emitAction}
-              action={action}
-            />
+            <div key={index}>
+              <ActionEmitter clickCb={this.emitAction} action={action} />
+              <DeleteButton onClick={this.deleteAction} id={action.type}>
+                X
+              </DeleteButton>
+            </div>
           ))}
         </div>
       </div>

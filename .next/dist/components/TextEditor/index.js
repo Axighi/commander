@@ -1,62 +1,59 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
+var _getPrototypeOf = require("babel-runtime/core-js/object/get-prototype-of");
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
 
-var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+var _classCallCheck2 = require("babel-runtime/helpers/classCallCheck");
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
-var _createClass2 = require('babel-runtime/helpers/createClass');
+var _createClass2 = require("babel-runtime/helpers/createClass");
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
+var _possibleConstructorReturn2 = require("babel-runtime/helpers/possibleConstructorReturn");
 
 var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
 
-var _inherits2 = require('babel-runtime/helpers/inherits');
+var _inherits2 = require("babel-runtime/helpers/inherits");
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _react = require('react');
+var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _draftJs = require('draft-js');
+var _draftJs = require("draft-js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var _jsxFileName = '/Users/azriel/projects/ws-server/components/TextEditor/index.js';
-
-
 var styles = {
   root: {
-    fontFamily: '\'Helvetica\', sans-serif',
+    fontFamily: "'Helvetica', sans-serif",
     padding: 20,
     flex: 3
   },
   editor: {
-    border: '1px solid #ccc',
-    cursor: 'text',
+    border: "1px solid #ccc",
+    cursor: "text",
     minHeight: 200,
     padding: 10
   },
   button: {
     marginTop: 10,
-    textAlign: 'center'
+    textAlign: "center"
   }
 };
 
 var convertObjectToText = function convertObjectToText(obj) {
   return obj.blocks.reduce(function (prev, cur) {
     return prev + cur.text;
-  }, '');
+  }, "");
 };
 
 var TextEditor = function (_React$Component) {
@@ -81,12 +78,12 @@ var TextEditor = function (_React$Component) {
       try {
         var action = JSON.parse(str);
         if (!action.type) {
-          alert('Invalid action!');
+          alert("Invalid action!");
           return;
         }
         _this.props.createAction(action);
       } catch (e) {
-        alert('Invalid JSON!');
+        alert("Invalid JSON!");
         return;
       }
     };
@@ -94,34 +91,18 @@ var TextEditor = function (_React$Component) {
   }
 
   (0, _createClass3.default)(TextEditor, [{
-    key: 'render',
+    key: "render",
     value: function render() {
-      return _react2.default.createElement('div', { style: styles.root, __source: {
-          fileName: _jsxFileName,
-          lineNumber: 49
-        }
-      }, _react2.default.createElement('div', { style: styles.editor, onClick: this.focus, __source: {
-          fileName: _jsxFileName,
-          lineNumber: 50
-        }
-      }, _react2.default.createElement(_draftJs.Editor, {
+      return _react2.default.createElement("div", { style: styles.root }, _react2.default.createElement("div", { style: styles.editor, onClick: this.focus }, _react2.default.createElement(_draftJs.Editor, {
         editorState: this.state.editorState,
         onChange: this.onChange,
-        placeholder: 'input json',
-        ref: 'editor',
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 51
-        }
-      })), _react2.default.createElement('input', {
+        placeholder: "input json",
+        ref: "editor"
+      })), _react2.default.createElement("input", {
         onClick: this.handleClick,
         style: styles.button,
-        type: 'button',
-        value: 'Log State',
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 58
-        }
+        type: "button",
+        value: "Generate Action"
       }));
     }
   }]);

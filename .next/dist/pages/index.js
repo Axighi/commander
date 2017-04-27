@@ -50,6 +50,10 @@ var _index3 = require("../components/ActionEmitter/index");
 
 var _index4 = _interopRequireDefault(_index3);
 
+var _index5 = require("../components/DeleteButton/index");
+
+var _index6 = _interopRequireDefault(_index5);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var socket = (0, _socket2.default)(process.env.NODE_ENV === "development" ? "http://localhost:4000" : "https://ws-server-mhnpavohst.now.sh/");
@@ -76,11 +80,26 @@ var Index = function (_React$Component) {
 
     _this.createAction = function (action) {
       console.log(action);
+      if (_this.state.actions.some(function (e) {
+        return e.type === action.type;
+      })) {
+        alert("action " + action.type + " exists!");
+        return;
+      }
       _this.setState({ actions: _this.state.actions.concat([action]) });
     };
 
     _this.emitAction = function (action) {
       socket.emit("message", (0, _stringify2.default)(action));
+    };
+
+    _this.deleteAction = function (actionId) {
+      console.log(actionId);
+      _this.setState({
+        actions: _this.state.actions.filter(function (e) {
+          return e.type !== actionId;
+        })
+      });
     };
 
     _this.state = {
@@ -95,11 +114,7 @@ var Index = function (_React$Component) {
       var _this2 = this;
 
       return _react2.default.createElement("div", { style: styles.root }, _react2.default.createElement(_reactNoSsr2.default, null, _react2.default.createElement(_index2.default, { createAction: this.createAction })), _react2.default.createElement("div", { style: styles.actionList }, this.state.actions.map(function (action, index) {
-        return _react2.default.createElement(_index4.default, {
-          key: index,
-          clickCb: _this2.emitAction,
-          action: action
-        });
+        return _react2.default.createElement("div", { key: index }, _react2.default.createElement(_index4.default, { clickCb: _this2.emitAction, action: action }), _react2.default.createElement(_index6.default, { onClick: _this2.deleteAction, id: action.type }, "X"));
       })));
     }
   }]);
