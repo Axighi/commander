@@ -18,6 +18,8 @@ const styles = {
   }
 };
 
+// build
+
 class Index extends React.Component {
   constructor() {
     super();
@@ -27,11 +29,7 @@ class Index extends React.Component {
   }
 
   componentDidMount() {
-    this.socket = io(
-      process.env.NODE_ENV === "development"
-        ? "http://localhost:4000"
-        : process.env.NOW_URL
-    );
+    this.socket = io(process.env.NODE_ENV === "development" ? "http://localhost:4000" : process.env.NOW_URL);
   }
 
   componentWillUnmount() {
